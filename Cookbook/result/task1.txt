@@ -1,0 +1,10 @@
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/make-them-equal-too-89585e71/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/make-them-equal-ac0bab4a/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/special-palindrome-11f52457/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/string-challenge-fbf8cc02/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/strongest-string-4103a929/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/maximum-substring-9b97fc5f/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/hidden-leaf-village-790b2618/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/minimum-length-2-d2b8af58/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/ororor-5ea10c51/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/letter-most-fb72d803/

@@ -1,0 +1,4 @@
+
+Cho $n$ bài toán. Các bài toán thuộc ba loại sau: ‘Type1’, ‘Type2’ và ‘Type3’. Có $t1$ bài toán thuộc ‘Type1’, $t2$ bài toán thuộc ‘Type2’, $t3$ bài toán thuộc ‘Type3’. Bạn có thể giải mỗi bài toán theo ba cách: ‘A’, ‘B’ và ‘C’. Mỗi cách, bạn chỉ được dùng với số lần nhất định. $a$ lần với cách ‘A’, $b$ lần với cách ‘B’, $c$ lần với cách ‘C’.
+
+Bạn được cho một ma trận $3\times 3$ với $A[i][j]$ tương ứng cho nỗ lực giải bài toán loại $i$ sử dụng cách $j$.

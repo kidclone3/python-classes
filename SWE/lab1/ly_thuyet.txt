@@ -1,0 +1,25 @@
+Trả lời các câu hỏi có trong bài.
+1. Done
+2. Done
+3. Không rõ
+4. Xác định Is A, Has A relationship trong phần thiết kế code đã viết ở trên.
+
+Trong OOP, ngoài tính Kết thừa (Inheritance), ta còn dùng nhiều tính Composition (tiếng việt là Kết hợp)
+Inheritance: Is-A 
+Composition: Has-A 
+
+- Các class Experience, Fresher, Intern được kế thừa từ class Employee nên mối quan hệ của 3 class này với Employee là Is-A 
+- Nhân viên cần nhiều bằng cấp, vậy nên trong 3 class trên cần sử dụng class Certificate. Đây là object mô tả bằng cấp, và cũng là quan hệ Has-A với 3 class đấy.
+
+5. Sử dụng và giải thích được ý nghĩa của 2 keyword: super, this trong phần thiết kế code ở trên.
+
+Vì ngôn ngữ được dùng là Python nên this(Java) ~ self(Python).
+- self chính là instance của class được code ngay lúc đấy, được sử dụng để truy cập các thuộc tính, tạo các thuộc tính và sử dụng các hàm.
+- super() được dùng để tránh lặp lại việc tạo các thuộc tính trong class được kế thừa từ class cha. Ở Python, super(...) ~ super().__init(...). Nghĩa là việc gọi super có thể dùng các hàm chứa trong class cha.
+
+6. Python không ứng dụng việc downcast
+
+Nguồn:
+https://www.geeksforgeeks.org/implementation-of-composition-has-a-relation-in-python/
+https://topdev.vn/blog/composition-la-cai-chi-chi/
+https://www.geeksforgeeks.org/self-in-python-class/

@@ -1,0 +1,10 @@
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/prefix-and-substring-queries-87616b64/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/string-4-d1093b86/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/jump-and-achieve-1-4588741c/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/palindrome-queries-eefd5c23/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/common-prime-5a915755/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/minimum-rotations-8d545eb1/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/lost-in-strings-11fa4a5d/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/forming-almost-similar-string-d551fc3d/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/missing-string-c28c0934/
+https://www.hackerearth.com/practice/algorithms/string-algorithm/string-searching/practice-problems/algorithm/the-flight-optimization-0267b2b5/

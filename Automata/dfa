@@ -1,0 +1,105 @@
+digraph {
+	node [shape=circle]
+	"{S0}"
+	node [shape=none]
+	""
+	"" -> "{S0}"
+	node [shape=circle]
+	"{S1,S3}"
+	"{S0}" -> "{S1,S3}" [label=a]
+	node [shape=circle]
+	"{S1,S4}"
+	"{S0}" -> "{S1,S4}" [label=b]
+	node [shape=circle]
+	"{S3,S4}"
+	"{S0}" -> "{S3,S4}" [label=c]
+	node [shape=circle]
+	"{S1,S3}"
+	"{S1,S3}" -> "{S1,S3}" [label=a]
+	node [shape=doublecircle]
+	"{S1,S2}"
+	"{S1,S3}" -> "{S1,S2}" [label=b]
+	node [shape=doublecircle]
+	"{S2,S3}"
+	"{S1,S3}" -> "{S2,S3}" [label=c]
+	node [shape=doublecircle]
+	"{S1,S2}"
+	"{S1,S4}" -> "{S1,S2}" [label=a]
+	node [shape=circle]
+	"{S1,S4}"
+	"{S1,S4}" -> "{S1,S4}" [label=b]
+	node [shape=doublecircle]
+	"{S2,S4}"
+	"{S1,S4}" -> "{S2,S4}" [label=c]
+	node [shape=doublecircle]
+	"{S2,S3}"
+	"{S3,S4}" -> "{S2,S3}" [label=a]
+	node [shape=doublecircle]
+	"{S2,S4}"
+	"{S3,S4}" -> "{S2,S4}" [label=b]
+	node [shape=circle]
+	"{S3,S4}"
+	"{S3,S4}" -> "{S3,S4}" [label=c]
+	node [shape=circle]
+	"{S1}"
+	"{S1,S2}" -> "{S1}" [label=a]
+	node [shape=circle]
+	"{S1}"
+	"{S1,S2}" -> "{S1}" [label=b]
+	node [shape=doublecircle]
+	"{S2}"
+	"{S1,S2}" -> "{S2}" [label=c]
+	node [shape=circle]
+	"{S3}"
+	"{S2,S3}" -> "{S3}" [label=a]
+	node [shape=doublecircle]
+	"{S2}"
+	"{S2,S3}" -> "{S2}" [label=b]
+	node [shape=circle]
+	"{S3}"
+	"{S2,S3}" -> "{S3}" [label=c]
+	node [shape=doublecircle]
+	"{S2}"
+	"{S2,S4}" -> "{S2}" [label=a]
+	node [shape=circle]
+	"{S4}"
+	"{S2,S4}" -> "{S4}" [label=b]
+	node [shape=circle]
+	"{S4}"
+	"{S2,S4}" -> "{S4}" [label=c]
+	node [shape=circle]
+	"{S1}"
+	"{S1}" -> "{S1}" [label=a]
+	node [shape=circle]
+	"{S1}"
+	"{S1}" -> "{S1}" [label=b]
+	node [shape=doublecircle]
+	"{S2}"
+	"{S1}" -> "{S2}" [label=c]
+	node [shape=circle]
+	"ϕ"
+	"ϕ" -> "ϕ" [label=a]
+	"ϕ" -> "ϕ" [label=b]
+	"ϕ" -> "ϕ" [label=c]
+	"{S2}" -> "ϕ" [label=c]
+	"{S2}" -> "ϕ" [label=b]
+	"{S2}" -> "ϕ" [label=c]
+	node [shape=circle]
+	"{S3}"
+	"{S3}" -> "{S3}" [label=a]
+	node [shape=doublecircle]
+	"{S2}"
+	"{S3}" -> "{S2}" [label=b]
+	node [shape=circle]
+	"{S3}"
+	"{S3}" -> "{S3}" [label=c]
+	node [shape=doublecircle]
+	"{S2}"
+	"{S4}" -> "{S2}" [label=a]
+	node [shape=circle]
+	"{S4}"
+	"{S4}" -> "{S4}" [label=b]
+	node [shape=circle]
+	"{S4}"
+	"{S4}" -> "{S4}" [label=c]
+}

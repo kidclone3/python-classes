@@ -1,0 +1,7 @@
+Start symbol: S
+S -> DD | AC
+A -> BD | BE
+E -> AD
+C -> DD
+B -> a
+D -> b

@@ -1,0 +1,441 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{42,33,28}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,1.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.00,0.40,1.00}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.27,0.67,0.26}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.02,0.61,0.04}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.00,0.40,1.00}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.26,0.66,0.93}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{\underline{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.27,0.67,0.26}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.00,0.40,1.00}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,1.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.27,0.67,0.26}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{1.00,0.58,0.35}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.00,0.40,1.00}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.26,0.66,0.93}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{\textbf{#1}}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.02,0.61,0.04}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.02,0.61,0.04}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.02,0.61,0.04}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.74,0.68,0.62}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.02,0.61,0.04}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{1.00,1.00,0.00}{\textbf{#1}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Homework week 2},
+  pdfauthor={Bùi Khánh Duy},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Homework week 2}
+\author{Bùi Khánh Duy}
+\date{2023-03-08}
+
+\begin{document}
+\maketitle
+
+\hypertarget{homework}{%
+\subsection{Homework}\label{homework}}
+
+\hypertarget{list-all-possible-simple-random-samples-of-size-n-2-that-can-be-selected-from-the-population-0-1-2-3-4.-calculate-sigma-2-for-the-population-and-vbary-for-the-sample.}{%
+\subsubsection{\texorpdfstring{4.1 List all possible simple random
+samples of size n = 2 that can be selected from the population \{0, 1,
+2, 3, 4\}. Calculate \(\sigma^ 2\) for the population and \(V(\bar{y})\)
+for the
+sample.}{4.1 List all possible simple random samples of size n = 2 that can be selected from the population \{0, 1, 2, 3, 4\}. Calculate \textbackslash sigma\^{} 2 for the population and V(\textbackslash bar\{y\}) for the sample.}}\label{list-all-possible-simple-random-samples-of-size-n-2-that-can-be-selected-from-the-population-0-1-2-3-4.-calculate-sigma-2-for-the-population-and-vbary-for-the-sample.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dataX }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{N }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(dataX)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(}\FunctionTok{combn}\NormalTok{(dataX, n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       [,1] [,2]
+##  [1,]    0    1
+##  [2,]    0    2
+##  [3,]    0    3
+##  [4,]    0    4
+##  [5,]    1    2
+##  [6,]    1    3
+##  [7,]    1    4
+##  [8,]    2    3
+##  [9,]    2    4
+## [10,]    3    4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sample }\OtherTok{\textless{}{-}} \FunctionTok{as.vector.data.frame}\NormalTok{(}\FunctionTok{apply}\NormalTok{(x, }\AttributeTok{MARGIN =} \DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \FunctionTok{paste}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"\{\%d,\%d\}"}\NormalTok{,x[}\DecValTok{1}\NormalTok{], x[}\DecValTok{2}\NormalTok{]))}
+\NormalTok{\}))}
+\NormalTok{y\_bar }\OtherTok{\textless{}{-}} \FunctionTok{as.vector.data.frame}\NormalTok{(}\FunctionTok{rowMeans}\NormalTok{(x))}
+
+\NormalTok{data2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(Sample, y\_bar)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule()
+Sample & y\_bar \\
+\midrule()
+\endhead
+\{0,1\} & 0.5 \\
+\{0,2\} & 1.0 \\
+\{0,3\} & 1.5 \\
+\{0,4\} & 2.0 \\
+\{1,2\} & 1.5 \\
+\{1,3\} & 2.0 \\
+\bottomrule()
+\end{longtable}
+
+and \[\sigma^2 = V(y) = E(y-\mu)^2 \\
+\text{with } \mu = E(\bar{y})
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y\_bar.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y\_bar)}
+\NormalTok{y\_bar.mean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sigma }\OtherTok{=} \FunctionTok{mean}\NormalTok{((x }\SpecialCharTok{{-}}\NormalTok{ y\_bar.mean)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"sigma\^{}2 = "}\NormalTok{,sigma))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "sigma^2 =  2"
+\end{verbatim}
+
+\[V(\bar{y}) = E(\bar{y}-\mu)^2 \]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v\_y\_bar }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((y\_bar }\SpecialCharTok{{-}}\NormalTok{ y\_bar.mean)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{v\_y\_bar}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.75
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sigma}\SpecialCharTok{/}\NormalTok{n}\SpecialCharTok{*}\NormalTok{(N}\SpecialCharTok{{-}}\NormalTok{n)}\SpecialCharTok{/}\NormalTok{(N}\DecValTok{{-}1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.75
+\end{verbatim}
+
+\[\Rightarrow V(\bar{y}) = \frac{\sigma^2}n \bigg(\frac{N-n}{N-1}\bigg)\]
+
+\hypertarget{for-the-simple-random-samples-generated-in-exercise-4.1-calculate-s2-for-each-sample.-show-numerically-that}{%
+\subsubsection{\texorpdfstring{4.2 For the simple random samples
+generated in Exercise 4.1, calculate \(s^2\) for each sample. Show
+numerically
+that}{4.2 For the simple random samples generated in Exercise 4.1, calculate s\^{}2 for each sample. Show numerically that}}\label{for-the-simple-random-samples-generated-in-exercise-4.1-calculate-s2-for-each-sample.-show-numerically-that}}
+
+\[E(s^2) = \frac{N}{N-1}\sigma^2\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s\_2 }\OtherTok{\textless{}{-}} \FunctionTok{as.vector.data.frame}\NormalTok{(}\FunctionTok{apply}\NormalTok{(x, }\AttributeTok{MARGIN=}\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \FunctionTok{var}\NormalTok{(x)}
+\NormalTok{\}))}
+\NormalTok{data3 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(data2, s\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\toprule()
+Sample & y\_bar & s\_2 \\
+\midrule()
+\endhead
+\{0,1\} & 0.5 & 0.5 \\
+\{0,2\} & 1.0 & 2.0 \\
+\{0,3\} & 1.5 & 4.5 \\
+\{0,4\} & 2.0 & 8.0 \\
+\{1,2\} & 1.5 & 0.5 \\
+\{1,3\} & 2.0 & 2.0 \\
+\{1,4\} & 2.5 & 4.5 \\
+\{2,3\} & 2.5 & 0.5 \\
+\{2,4\} & 3.0 & 2.0 \\
+\{3,4\} & 3.5 & 0.5 \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s\_2.mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(s\_2)}
+\NormalTok{s\_2.mean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{N}\SpecialCharTok{/}\NormalTok{(N}\DecValTok{{-}1}\NormalTok{)}\SpecialCharTok{*}\NormalTok{sigma}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.5
+\end{verbatim}
+
+\[\Rightarrow E(s^2) = \frac{N}{N-1}\sigma^2\] That all!
+
+\hypertarget{suppose-you-want-to-estimate-the-number-of-weed-clusters-of-a-certain-type-in-a-field.-what-is-the-population-and-what-would-you-use-for-sampling-units-how-would-you-construct-a-frame-how-would-you-select-a-simple-random-sample-if-a-sampling-unit-is-an-area-such-as-a-square-yard-does-the-size-chosen-for-a-sampling-unit-affect-the-accuracy-of-the-results-what-considerations-go-into-our-choice-of-size-of-sampling-unit}{%
+\subsubsection{4.3 Suppose you want to estimate the number of weed
+clusters of a certain type in a field. What is the population, and what
+would you use for sampling units? How would you construct a frame? How
+would you select a simple random sample? If a sampling unit is an area
+such as a square yard, does the size chosen for a sampling unit affect
+the accuracy of the results? What considerations go into our choice of
+size of sampling
+unit?}\label{suppose-you-want-to-estimate-the-number-of-weed-clusters-of-a-certain-type-in-a-field.-what-is-the-population-and-what-would-you-use-for-sampling-units-how-would-you-construct-a-frame-how-would-you-select-a-simple-random-sample-if-a-sampling-unit-is-an-area-such-as-a-square-yard-does-the-size-chosen-for-a-sampling-unit-affect-the-accuracy-of-the-results-what-considerations-go-into-our-choice-of-size-of-sampling-unit}}
+
+\begin{itemize}
+\tightlist
+\item
+  Tổng thể (population): Tất cả các cụm cỏ trên cánh đồng
+\item
+  Đơn vị mẫu: Sử dụng đơn vị diện tích: mẫu, sào, mét vuông, v.v
+\item
+  Khung mẫu: Tiến hành đo đạc toàn bộ cánh đồng để biết diện tích của
+  tổng thể là bao nhiêu, từ đấy tiến hành chia nhỏ và đánh số để chọn
+  mẫu
+\item
+  Chọn mẫu ngẫu nhiên đơn giản: Tiến hành chọn ngẫu nhiên theo số thứ tự
+  được đánh.
+\item
+  Nếu kích thước chọn mẫu là 1 thước vuông (square yard) =\textgreater{}
+  đây là đơn vị phổ biến thường được dùng để đo đạc ruộng đất, và nó
+  cũng đủ lớn để tiến hành nghiên cứu. Việc đơn vị mẫu lớn hơn có thể
+  hiệu quả hơn trong khảo sát, nhưng khi đơn vị mẫu nhỏ hơn lại có thể
+  cung cấp kết quả chính xác hơn. Cần phải cân nhắc giữa hiệu quả và độ
+  chính xác, và kích thước đơn vị mẫu nên được chọn cẩn thận. Ở bài toán
+  ruộng đất thì có thể ưu tiên độ hiệu quả hơn.
+\item
+  Các yếu tố cần được xem xét khi lựa chọn kích thước của đơn vị mẫu:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Tính đồng nhất: Nếu tổng thể là đồng nhất, có thể sử dụng các đơn vị
+    mẫu nhỏ vì đã có thể bao quát được sự biến động của đơn vị quan sát.
+  \item
+    Tính đa dạng: Nếu tổng thể đa dạng, có thể cần sử dụng các đơn vị
+    mẫu lớn hơn.
+  \item
+    Độ chính xác mẫu: Các đơn vị mẫu nhỏ hơn có thể cung cấp độ chính
+    xác cao hơn, nhưng có thể đòi hỏi nhiều tài nguyên và thời gian để
+    thực hiện chọn mẫu và phân tích.
+  \item
+    Chi phí: Các đơn vị mẫu lớn hơn có thể hiệu quả về chi phí hơn, vì
+    cần ít công sức để lấy mẫu và phân tích hơn, nhưng có thể dẫn đến độ
+    chính xác không cao.
+  \item
+    Phương pháp lấy mẫu: Lựa chọn kích thước đơn vị mẫu cũng có thể bị
+    ảnh hưởng bởi phương pháp lấy mẫu. Ví dụ, lấy mẫu phân tầng có thể
+    đòi hỏi đơn vị mẫu nhỏ hơn so với phương pháp lấy mẫu ngẫu nhiên đơn
+    giản.
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{in-which-of-the-following-situations-can-you-reasonably-generalize-from-the-sample-to-the-population}{%
+\subsubsection{4.4 In which of the following situations can you
+reasonably generalize from the sample to the
+population?}\label{in-which-of-the-following-situations-can-you-reasonably-generalize-from-the-sample-to-the-population}}
+
+\hypertarget{a.-you-use-your-statistics-class-to-get-an-estimate-of-the-percentage-of-students-in-your-school-who-study-at-least-two-hours-a-night.}{%
+\paragraph{a. You use your statistics class to get an estimate of the
+percentage of students in your school who study at least two hours a
+night.}\label{a.-you-use-your-statistics-class-to-get-an-estimate-of-the-percentage-of-students-in-your-school-who-study-at-least-two-hours-a-night.}}
+
+Có thể, bởi vì việc chọn mẫu là khả thi, có thể thực hiện và có đủ lớn
+để kết luận cho tổng thể.
+
+\hypertarget{b.-you-use-the-average-annual-income-of-the-ambassadors-to-the-united-nations-to-get-an-estimate-of-average-per-capita-income-for-the-world-as-a-whole.}{%
+\paragraph{b. You use the average annual income of the ambassadors to
+the United Nations to get an estimate of average per-capita income for
+the world as a
+whole.}\label{b.-you-use-the-average-annual-income-of-the-ambassadors-to-the-united-nations-to-get-an-estimate-of-average-per-capita-income-for-the-world-as-a-whole.}}
+
+Không thể. Vì mẫu chọn được chỉ là 1 quốc gia Mỹ trong khi trên thế giới
+có gần 300 quốc gia.
+
+\hypertarget{c.-in-1996-a-gallup-poll-sampled-235-u.s.-residents-ages-18-to-29-to-estimate-the-per--centage-of-all-u.s.-residents-ages-18-to-29-who-favored-cuts-in-social-spending.}{%
+\paragraph{c.~In 1996, a Gallup poll sampled 235 U.S. residents ages 18
+to 29, to estimate the per- centage of all U.S. residents ages 18 to 29
+who favored cuts in social
+spending.}\label{c.-in-1996-a-gallup-poll-sampled-235-u.s.-residents-ages-18-to-29-to-estimate-the-per--centage-of-all-u.s.-residents-ages-18-to-29-who-favored-cuts-in-social-spending.}}
+
+Không biết, vì không đủ dữ kiện về cách chọn mẫu. Nhưng nếu dựa trên tỉ
+lệ cho tổng thể là tất cả cư dẫn Mỹ từ 18 đến 29 tuổi thì là không đủ.
+
+\hypertarget{describe-the-type-of-sample-selection-bias-that-would-result-from-each-of-these-sampling-methods.}{%
+\subsubsection{4.5 Describe the type of sample selection bias that would
+result from each of these sampling
+methods.}\label{describe-the-type-of-sample-selection-bias-that-would-result-from-each-of-these-sampling-methods.}}
+
+\hypertarget{a.-a-student-wants-to-determine-the-average-size-of-farms-in-a-county-in-iowa.-he-drops-some-rice-randomly-on-a-map-of-the-county-and-uses-the-farms-hit-by-grains-of-rice-as-the-sample.}{%
+\paragraph{a. A student wants to determine the average size of farms in
+a county in Iowa. He drops some rice randomly on a map of the county and
+uses the farms hit by grains of rice as the
+sample.}\label{a.-a-student-wants-to-determine-the-average-size-of-farms-in-a-county-in-iowa.-he-drops-some-rice-randomly-on-a-map-of-the-county-and-uses-the-farms-hit-by-grains-of-rice-as-the-sample.}}
+
+Sai lệch chọn mẫu do khung chưa đủ. Vì cách chọn này không theo một hệ
+thống lấy mẫu hay khung mẫu cụ thể nào nên rất dễ dẫn đến việc bỏ sót
+mẫu.
+
+\hypertarget{b.-in-a-study-about-whether-valedictorians-succeed-big-in-life-a-professor-traveled-across-illinois-attending-high-school-graduations-and-selecting-81-students-to-participate.-.-.-.-he-picked-students-from-the-most-diverse-communities-possible-from-little-rural-schools-to-rich-suburban-schools-near-chicago-to-city-schools.-source-michael-ryan-do-valedictorians-succeed-big-in-life-parade-magazine-may-17-1998-pages-1415.}{%
+\paragraph{b. In a study about whether valedictorians ``succeed big in
+life,'' a professor ``traveled across Illinois, attending high school
+graduations and selecting 81 students to participate. . . . He picked
+students from the most diverse communities possible, from little rural
+schools to rich suburban schools near Chicago to city schools.'' Source:
+Michael Ryan, ``Do Valedictorians Succeed Big in Life?'' Parade
+Magazine, May 17, 1998, pages
+14--15.}\label{b.-in-a-study-about-whether-valedictorians-succeed-big-in-life-a-professor-traveled-across-illinois-attending-high-school-graduations-and-selecting-81-students-to-participate.-.-.-.-he-picked-students-from-the-most-diverse-communities-possible-from-little-rural-schools-to-rich-suburban-schools-near-chicago-to-city-schools.-source-michael-ryan-do-valedictorians-succeed-big-in-life-parade-magazine-may-17-1998-pages-1415.}}
+
+Sai lệch chọn mẫu do mẫu không ngẫu nhiên. Giáo sư đã lựa chọn học sinh
+từ các đa dạng các nhóm, điều này có thể đưa ra sai lệch vào nghiên cứu.
+Ví dụ, học sinh từ một số nhóm có thể có cơ hội giáo dục hoặc hoàn cảnh
+gia đình khác nhau, ảnh hưởng đến việc thành công của họ trong tương
+lai.
+
+\hypertarget{c.-to-estimate-the-percentage-of-students-who-passed-the-first-advanced-placement-statistics-exam-a-teacher-on-an-internet-discussion-list-for-teachers-of-ap-statistics-asked-teachers-on-the-list-to-report-to-him-how-many-of-their-students-took-the-test-and-how-many-passed.}{%
+\paragraph{c.~To estimate the percentage of students who passed the
+first Advanced Placement Statistics exam, a teacher on an Internet
+discussion list for teachers of AP Statistics asked teachers on the list
+to report to him how many of their students took the test and how many
+passed.}\label{c.-to-estimate-the-percentage-of-students-who-passed-the-first-advanced-placement-statistics-exam-a-teacher-on-an-internet-discussion-list-for-teachers-of-ap-statistics-asked-teachers-on-the-list-to-report-to-him-how-many-of-their-students-took-the-test-and-how-many-passed.}}
+
+Sai lệch chọn mẫu do tự chọn. Việc các giáo viên có thể chọn trả lời
+hoặc không / trả lời đúng hoặc sai làm ảnh hưởng đến kết quả chọn mẫu.
+
+\hypertarget{d.-to-find-the-average-length-of-string-in-a-bag-a-student-reaches-in-mixes-up-the-strings-selects-one-mixes-them-up-again-selects-another-and-so-on.}{%
+\paragraph{d.~To find the average length of string in a bag, a student
+reaches in, mixes up the strings, selects one, mixes them up again,
+selects another, and so
+on.}\label{d.-to-find-the-average-length-of-string-in-a-bag-a-student-reaches-in-mixes-up-the-strings-selects-one-mixes-them-up-again-selects-another-and-so-on.}}
+
+Sai lệch chọn mẫu do lấy mẫu theo hệ thống. Mỗi lần lấy 1 sợi dây ra
+khỏi túi, xác suất của các sợi dây đã bị thay đổi, dẫn đến kết quả sai
+trong việc tính mẫu.
+
+\hypertarget{e.-in-1984-ann-landers-conducted-a-poll-on-the-marital-happiness-of-women-by-asking-women-to-write-to-her.}{%
+\paragraph{e. In 1984, Ann Landers conducted a poll on the marital
+happiness of women by asking women to write to
+her.}\label{e.-in-1984-ann-landers-conducted-a-poll-on-the-marital-happiness-of-women-by-asking-women-to-write-to-her.}}
+
+Sai lệch chọn mẫu do phản hồi tự nguyện. Chỉ những phụ nữ quan tâm đến
+việc tham gia cuộc khảo sát mới viết thư cho Ann Landers, điều này có
+thể dẫn đến sự đại diện quá nhiều của phụ nữ có chung quan điểm về hạnh
+phúc hôn nhân.
+
+\end{document}

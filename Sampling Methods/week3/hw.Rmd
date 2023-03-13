@@ -1,0 +1,180 @@
+---
+title: "Homework 2"
+author: "Bùi Khánh Duy"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 4.12
+
+Giả sử $p$ là tỷ lệ số lượng thanh niên trong khoảng 18-19 đang đi học, tức $p=0.6$
+
+Sử dụng công thức Bernoully để chọn k người trong 40 người lấy ngẫu nhiên
+
+$$
+P(k) = C^k_{40}.p^k.(1-p)^{40-k}
+$$
+
+```{r} 
+
+p = 0.6
+
+k = 32
+
+p_k = choose(40, k) * (p^k) * ((1-p) ^ (40-k))
+
+p_k
+
+```
+
+Vì $p_k$ rất bé nên khả năng lấy đc 32 người đi học từ việc chọn 40 người ngẫu nhiên là ko hợp lý 
+
+## 4.13
+
+
+## 4.14
+
+```{r} 
+n = 30
+
+N = 300
+
+sigma = 25
+
+y_bar = sigma / n
+
+B = 2*sqrt(y_bar*(1-y_bar)/n)
+
+print(sprintf("y_bar = %f, B = %f " , y_bar, B))
+
+```
+
+## 4.15
+
+```{r}
+B = 0.05
+
+n_0 <- N*(y_bar*(1-y_bar))/((N-1) *B^2/4 + y_bar*(1-y_bar))
+
+n_0
+```
+Vậy cần $n \ge \lceil n_0 \rceil \approx n > 128$ 
+
+## 4.16
+
+```{r}
+N = 10000
+n = 100
+y_bar = 12.5
+s_2 = 1252
+
+mu = y_bar
+
+B = 2*sqrt((1-(n/N)) * (s_2/n))
+
+print(sprintf("mu = %f, B = %f " , mu, B))
+```
+
+## 4.17
+
+```{r}
+
+tau = N * y_bar
+
+B = 2*sqrt((N^2) * (1-(n/N)) * (s_2/n))
+
+print(sprintf("tau = %f, b = %f " , tau, B))
+
+```
+
+## 4.18
+### a.
+```{r}
+N = 10000
+n = 500
+
+Deers.mean = 2.30
+Deers.var = 0.65
+
+Rabbits.mean = 4.52
+Rabbits.var = 0.97
+
+mu1 = Deers.mean
+mu2 = Rabbits.mean
+
+find_b <- function(n, N, s_2) {
+  B <- 2*sqrt((1-(n/N)) * (s_2/n))
+  B
+}
+
+b1 = find_b(n, N, Deers.var)
+b2 = find_b(n, N, Rabbits.var)
+
+print(sprintf("mu1 = %f, b1 = %f , mu2 = %f, b2 = %f" , mu1, b1, mu2, b2))
+```
+### b.
+```{r}
+
+find_v_bar <- function(b) {
+  v_bar = (b/2)^2
+}
+
+find_b_diff <- function(s1, s2) {
+  B = 2 * sqrt(find_v_bar(b1)) + find_v_bar(b2)
+  B
+}
+
+B_diff = find_b_diff(Deers.var, Rabbits.var)
+
+lower_bound = (mu1-mu2) - B_diff
+upper_bound = (mu1-mu2) + B_diff
+
+print(sprintf("b = %f, [%f , %f]" , B_diff, lower_bound, upper_bound))
+```
+
+## 4.19
+$$
+\bar{y} = \frac{\sum y_i}{n} \\
+s^2 = \frac{\sum(y_i-\bar{y})^2}{n-1}
+$$
+```{r}
+child = c(1:10)
+number = c(0, 4, 2, 3, 2, 0, 3, 4, 1, 1)
+
+N = 1000
+n = length(number)
+
+y_bar = mean(number)
+s2 = var(number)
+
+mu = y_bar
+b = find_b(n, N, s2)
+
+print(sprintf("mu = %f, b = %f" , mu,b))
+```
+
+## 4.20
+```{r}
+N = 99000
+n = 1000
+y_bar = 430 / n
+p = y_bar
+B = 2*sqrt((1-n/N)*y_bar*(1-y_bar)/(n-1))
+print(sprintf("p = %f,b = %f",p, B))
+```
+
+## 4.21
+```{r}
+B = 0.02
+n = N*(y_bar*(1-y_bar))/((N-1) *B^2/4 + y_bar*(1-y_bar))
+print(sprintf("n_0 = %f", n))
+```
+$$
+\Rightarrow N \ge \lceil n_0 \rceil = 2392
+$$

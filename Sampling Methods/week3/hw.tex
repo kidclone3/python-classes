@@ -1,0 +1,359 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Homework 2},
+  pdfauthor={Bùi Khánh Duy},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Homework 2}
+\author{Bùi Khánh Duy}
+\date{2023-03-12}
+
+\begin{document}
+\maketitle
+
+\hypertarget{section}{%
+\subsection{4.12}\label{section}}
+
+Giả sử \(p\) là tỷ lệ số lượng thanh niên trong khoảng 18-19 đang đi
+học, tức \(p=0.6\)
+
+Sử dụng công thức Bernoully để chọn k người trong 40 người lấy ngẫu
+nhiên
+
+\[
+P(k) = C^k_{40}.p^k.(1-p)^{40-k}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\OtherTok{=} \FloatTok{0.6}
+
+\NormalTok{k }\OtherTok{=} \DecValTok{32}
+
+\NormalTok{p\_k }\OtherTok{=} \FunctionTok{choose}\NormalTok{(}\DecValTok{40}\NormalTok{, k) }\SpecialCharTok{*}\NormalTok{ (p}\SpecialCharTok{\^{}}\NormalTok{k) }\SpecialCharTok{*}\NormalTok{ ((}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p) }\SpecialCharTok{\^{}}\NormalTok{ (}\DecValTok{40}\SpecialCharTok{{-}}\NormalTok{k))}
+
+\NormalTok{p\_k}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.004011185
+\end{verbatim}
+
+Vì \(p_k\) rất bé nên khả năng lấy đc 32 người đi học từ việc chọn 40
+người ngẫu nhiên là ko hợp lý
+
+\hypertarget{section-1}{%
+\subsection{4.13}\label{section-1}}
+
+\hypertarget{section-2}{%
+\subsection{4.14}\label{section-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{30}
+
+\NormalTok{N }\OtherTok{=} \DecValTok{300}
+
+\NormalTok{sigma }\OtherTok{=} \DecValTok{25}
+
+\NormalTok{y\_bar }\OtherTok{=}\NormalTok{ sigma }\SpecialCharTok{/}\NormalTok{ n}
+
+\NormalTok{B }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(y\_bar}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y\_bar)}\SpecialCharTok{/}\NormalTok{n)}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"y\_bar = \%f, B = \%f "}\NormalTok{ , y\_bar, B))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "y_bar = 0.833333, B = 0.136083 "
+\end{verbatim}
+
+\hypertarget{section-3}{%
+\subsection{4.15}\label{section-3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B }\OtherTok{=} \FloatTok{0.05}
+
+\NormalTok{n\_0 }\OtherTok{\textless{}{-}}\NormalTok{ N}\SpecialCharTok{*}\NormalTok{(y\_bar}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y\_bar))}\SpecialCharTok{/}\NormalTok{((N}\DecValTok{{-}1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{B}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{/}\DecValTok{4} \SpecialCharTok{+}\NormalTok{ y\_bar}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y\_bar))}
+
+\NormalTok{n\_0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 127.9045
+\end{verbatim}
+
+Vậy cần \(n \ge \lceil n_0 \rceil \approx n > 128\)
+
+\hypertarget{section-4}{%
+\subsection{4.16}\label{section-4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{N }\OtherTok{=} \DecValTok{10000}
+\NormalTok{n }\OtherTok{=} \DecValTok{100}
+\NormalTok{y\_bar }\OtherTok{=} \FloatTok{12.5}
+\NormalTok{s\_2 }\OtherTok{=} \DecValTok{1252}
+
+\NormalTok{mu }\OtherTok{=}\NormalTok{ y\_bar}
+
+\NormalTok{B }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{((}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{(n}\SpecialCharTok{/}\NormalTok{N)) }\SpecialCharTok{*}\NormalTok{ (s\_2}\SpecialCharTok{/}\NormalTok{n))}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"mu = \%f, B = \%f "}\NormalTok{ , mu, B))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "mu = 12.500000, B = 7.041250 "
+\end{verbatim}
+
+\hypertarget{section-5}{%
+\subsection{4.17}\label{section-5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tau }\OtherTok{=}\NormalTok{ N }\SpecialCharTok{*}\NormalTok{ y\_bar}
+
+\NormalTok{B }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{((N}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{(n}\SpecialCharTok{/}\NormalTok{N)) }\SpecialCharTok{*}\NormalTok{ (s\_2}\SpecialCharTok{/}\NormalTok{n))}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"tau = \%f, b = \%f "}\NormalTok{ , tau, B))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "tau = 125000.000000, b = 70412.498890 "
+\end{verbatim}
+
+\hypertarget{section-6}{%
+\subsection{4.18}\label{section-6}}
+
+\hypertarget{a.}{%
+\subsubsection{a.}\label{a.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{N }\OtherTok{=} \DecValTok{10000}
+\NormalTok{n }\OtherTok{=} \DecValTok{500}
+
+\NormalTok{Deers.mean }\OtherTok{=} \FloatTok{2.30}
+\NormalTok{Deers.var }\OtherTok{=} \FloatTok{0.65}
+
+\NormalTok{Rabbits.mean }\OtherTok{=} \FloatTok{4.52}
+\NormalTok{Rabbits.var }\OtherTok{=} \FloatTok{0.97}
+
+\NormalTok{mu1 }\OtherTok{=}\NormalTok{ Deers.mean}
+\NormalTok{mu2 }\OtherTok{=}\NormalTok{ Rabbits.mean}
+
+\NormalTok{find\_b }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(n, N, s\_2) \{}
+\NormalTok{  B }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{((}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{(n}\SpecialCharTok{/}\NormalTok{N)) }\SpecialCharTok{*}\NormalTok{ (s\_2}\SpecialCharTok{/}\NormalTok{n))}
+\NormalTok{  B}
+\NormalTok{\}}
+
+\NormalTok{b1 }\OtherTok{=} \FunctionTok{find\_b}\NormalTok{(n, N, Deers.var)}
+\NormalTok{b2 }\OtherTok{=} \FunctionTok{find\_b}\NormalTok{(n, N, Rabbits.var)}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"mu1 = \%f, b1 = \%f , mu2 = \%f, b2 = \%f"}\NormalTok{ , mu1, b1, mu2, b2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "mu1 = 2.300000, b1 = 0.070285 , mu2 = 4.520000, b2 = 0.085860"
+\end{verbatim}
+
+\hypertarget{b.}{%
+\subsubsection{b.}\label{b.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{find\_v\_bar }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(b) \{}
+\NormalTok{  v\_bar }\OtherTok{=}\NormalTok{ (b}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{\}}
+
+\NormalTok{find\_b\_diff }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(s1, s2) \{}
+\NormalTok{  B }\OtherTok{=} \DecValTok{2} \SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{find\_v\_bar}\NormalTok{(b1)) }\SpecialCharTok{+} \FunctionTok{find\_v\_bar}\NormalTok{(b2)}
+\NormalTok{  B}
+\NormalTok{\}}
+
+\NormalTok{B\_diff }\OtherTok{=} \FunctionTok{find\_b\_diff}\NormalTok{(Deers.var, Rabbits.var)}
+
+\NormalTok{lower\_bound }\OtherTok{=}\NormalTok{ (mu1}\SpecialCharTok{{-}}\NormalTok{mu2) }\SpecialCharTok{{-}}\NormalTok{ B\_diff}
+\NormalTok{upper\_bound }\OtherTok{=}\NormalTok{ (mu1}\SpecialCharTok{{-}}\NormalTok{mu2) }\SpecialCharTok{+}\NormalTok{ B\_diff}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"b = \%f, [\%f , \%f]"}\NormalTok{ , B\_diff, lower\_bound, upper\_bound))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "b = 0.072128, [-2.292128 , -2.147872]"
+\end{verbatim}
+
+\hypertarget{section-7}{%
+\subsection{4.19}\label{section-7}}
+
+\[
+\bar{y} = \frac{\sum y_i}{n} \\
+s^2 = \frac{\sum(y_i-\bar{y})^2}{n-1}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{child }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{number }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{N }\OtherTok{=} \DecValTok{1000}
+\NormalTok{n }\OtherTok{=} \FunctionTok{length}\NormalTok{(number)}
+
+\NormalTok{y\_bar }\OtherTok{=} \FunctionTok{mean}\NormalTok{(number)}
+\NormalTok{s2 }\OtherTok{=} \FunctionTok{var}\NormalTok{(number)}
+
+\NormalTok{mu }\OtherTok{=}\NormalTok{ y\_bar}
+\NormalTok{b }\OtherTok{=} \FunctionTok{find\_b}\NormalTok{(n, N, s2)}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"mu = \%f, b = \%f"}\NormalTok{ , mu,b))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "mu = 2.000000, b = 0.938083"
+\end{verbatim}
+
+\hypertarget{section-8}{%
+\subsection{4.20}\label{section-8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{N }\OtherTok{=} \DecValTok{99000}
+\NormalTok{n }\OtherTok{=} \DecValTok{1000}
+\NormalTok{y\_bar }\OtherTok{=} \DecValTok{430} \SpecialCharTok{/}\NormalTok{ n}
+\NormalTok{p }\OtherTok{=}\NormalTok{ y\_bar}
+\NormalTok{B }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{((}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{n}\SpecialCharTok{/}\NormalTok{N)}\SpecialCharTok{*}\NormalTok{y\_bar}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y\_bar)}\SpecialCharTok{/}\NormalTok{(n}\DecValTok{{-}1}\NormalTok{))}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"p = \%f,b = \%f"}\NormalTok{,p, B))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "p = 0.430000,b = 0.031168"
+\end{verbatim}
+
+\hypertarget{section-9}{%
+\subsection{4.21}\label{section-9}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B }\OtherTok{=} \FloatTok{0.02}
+\NormalTok{n }\OtherTok{=}\NormalTok{ N}\SpecialCharTok{*}\NormalTok{(y\_bar}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y\_bar))}\SpecialCharTok{/}\NormalTok{((N}\DecValTok{{-}1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{B}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{/}\DecValTok{4} \SpecialCharTok{+}\NormalTok{ y\_bar}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y\_bar))}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"n\_0 = \%f"}\NormalTok{, n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "n_0 = 2391.808773"
+\end{verbatim}
+
+\[
+\Rightarrow N \ge \lceil n_0 \rceil = 2392
+\]
+
+\end{document}

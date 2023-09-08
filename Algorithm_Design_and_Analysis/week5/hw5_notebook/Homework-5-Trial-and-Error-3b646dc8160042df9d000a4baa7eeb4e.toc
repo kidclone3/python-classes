@@ -1,0 +1,22 @@
+\contentsline {section}{Homework 5: Trial and Error}{1}{section*.2}%
+\contentsline {subsection}{Bùi Khánh Duy - 20001898}{1}{section*.3}%
+\contentsline {section}{I. Lí thuyết phương pháp}{1}{section*.4}%
+\contentsline {subsection}{1. Vét cạn (Brute Force/Exhaustive):}{1}{section*.5}%
+\contentsline {subsection}{2. Quay lui (Backtracking):}{2}{section*.6}%
+\contentsline {subsection}{3. Nhánh cận (Branch and Bound):}{2}{section*.7}%
+\contentsline {section}{II. Lập trình}{2}{section*.8}%
+\contentsline {subsection}{Khớp xâu}{2}{section*.9}%
+\contentsline {subsubsection}{Bài toán}{2}{section*.10}%
+\contentsline {subsubsection}{Ý tưởng của thuật toán:}{2}{section*.11}%
+\contentsline {subsubsection}{Code (C++)}{3}{section*.12}%
+\contentsline {subsection}{Dãy nhị phân}{3}{section*.13}%
+\contentsline {subsubsection}{C1: Đệ quy}{3}{section*.14}%
+\contentsline {subsubsection}{C2: Khử đệ quy}{4}{section*.15}%
+\contentsline {section}{III. Đặt bài toán, thiết kế, phân tích và triển khai thuật toán}{4}{section*.16}%
+\contentsline {subsection}{Bài toán}{4}{section*.17}%
+\contentsline {subsubsection}{Mô tả bài toán}{4}{section*.18}%
+\contentsline {subsubsection}{Phân tích}{5}{section*.19}%
+\contentsline {subsubsection}{Backtracking}{6}{section*.20}%
+\contentsline {subsubsection}{Thuật toán \textbf {Warnsdorff}}{8}{section*.21}%
+\contentsline {subsection}{Chia để trị}{11}{section*.22}%
+\contentsline {subsection}{Neural Network}{14}{section*.23}%

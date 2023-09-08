@@ -1,0 +1,31 @@
+---
+title: "Week8"
+author: "Bùi Khánh Duy"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Đọc dữ liệu
+```{r}
+data = read.csv("./Life.csv", header=T)
+dt = data[,-1]
+
+# Phan tich nhan to
+fit = factanal(dt, 3)
+fit
+
+```
+
+Không sử dụng ma trận hiệp phương sai mà dùng ma trận tương quan
+
+Loading: Tải trọng
+
+$m0 = 0.964*F1  + 0.122*F2  + 0.226*F3$
+
+```{r}
+L = fit$loadings
+```

@@ -1,0 +1,91 @@
+---
+title: "Week 6"
+author: "Bùi Khánh Duy"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+  pdf_document:
+    latex_engine: lualatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+print(utils::getSrcFilename(function(){}, full.names = TRUE))
+```
+
+Đọc dữ liệu:
+```{r}
+dl = read.csv("table1.csv")
+x = dl[, c("X1", "X2", "X3")]
+s = cov(x)
+
+s
+
+eicov = eigen(s)
+eicov
+eicov$values
+
+# lambda_1 = 18.331135, lambda_2 = 4.385884, lambda_3 = 2.385613
+
+eicov$vectors # vecto rieng
+
+```
+=> $e_1 = (-0.5155034, -0.7818109, -0.3507533)^T$
+Biểu diễn các thành phân chính theo biến ban đầu X1, X2, X3
+
+Thành phần chính thứ nhất $PC_1$
+
+$$PC_1 = e_1^T*X$$
+=> $$PC_1 = -0.5155034 *X1 -0.7818109 *X2 -0.3507533 * X3$$
+
+=> $PC_1$ chứa nhiều thông tin X nhất
+
+=> $PC_2$ chứa nhiều thông tin của X = (X1, X2, X3)^T mà $PC_1$ chưa thể hiện
+
+$$\lambda_1 + \lambda_2 + \lambda_3 = tr(S) = \sigma_{11} + \sigma_{22} + \sigma_{33}$$
+(tr(S) = vết của S)
+
+Tỷ lệ $\lambda_i \over tr(S)$ là phần thông tin của X được chứa trong $PC_i$ và được gọi là ***tỷ lệ biến sai tổng cộng***
+
+Thực tế, khi tỉ lệ $\lambda_m \over tr(S)$ đủ nhỏ thì không cần đến các thành phần chính $PC_m, PC_{m+1}, ..., PC_k$ để biểu diễn X
+
+*Hỏi*: Để thu được 95% thông tin về tập dữ liệu ban đầu thì cần bao nhiêu thành phần chính?
+
+Tìm m nguyên dương nhỏ nhất sao cho $\frac{(\lambda_1 + ... + \lambda_m)}{tr(S)} > 0.95$
+
+```{r}
+head(x)
+pca = princomp(x)
+summary(pca)
+```
+
+Tỉ lệ biến sai tổng cộng của thành phần chính thứ nhất, thứ 2 và thứ 3 là 0.7302475, 0.1747181, 0.09503436
+
+*Hỏi*: Để thu được 90% thông tin về tập dữ liệu ban đầu thì cần bao nhiêu thành phần chính?
+
+Ta có: $\frac{(\lambda_1 + \lambda_2)}{tr(S)} = 0.9049656 > 90\%$ nên chỉ cần hai thành phần chính, ta sẽ thu được 90% thông tin về tập dữ liệu ban đầu.
+```{r}
+summary(pca, loadings=T)
+```
+
+$$PC_1 = e_1^T*X$$
+$$PC_1 = 0.516*X1 + 0.782*X2 + 0.351*X3$$
+
+```{r}
+pcacov = princomp(covmat=s)
+summary(pcacov) # Tỉ lệ biến sai tổng cộng
+summary(pcacov, loadings=T)
+```
+
+Vẽ đồ thị nào
+```{r}
+# install.packages("stats")
+library(stats)
+biplot(pca, col = c("grey", "black"))
+```
+
+Góc giữa các vectơ thể hiện độ tương quan giữa các biến, góc càng nhỏ thì hệ số tương quan càng lớn.

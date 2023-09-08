@@ -1,0 +1,106 @@
+---
+title: "ANOVA"
+author: "Pai"
+date: "2023-05-07"
+output: html_document
+---
+
+## ANOVA ONE WAY
+
+```{r}
+# install.packages(c("ggpubr", "broom", "AICcmodavg"))
+library(ggplot2)
+library(ggpubr)
+library(tidyverse)
+library(broom)
+library(AICcmodavg)
+```
+
+```{r}
+# install.packages("palmerpenguins")
+library(palmerpenguins)
+library(tidyverse)
+
+dat <- penguins %>%
+  select(species, flipper_length_mm)
+summary(dat)
+
+library(ggplot2)
+
+ggplot(dat) +
+  aes(x = species, y = flipper_length_mm, color = species) +
+  geom_jitter() +
+  theme(legend.position = "none")
+```
+
+The null and alternative hypothesis of an ANOVA are:
+
+-   $H_0: \mu_{Adelie}=\mu_{Chinstrap}=\mu_{Gentoo}$ (the 3 species are equal in terms of flipper length).
+
+-   $H_1:$ *at least* one mean is different (at least one species is different from the other 2 species in terms of flipper length).
+
+    ```{r}
+    res_aov <- aov(flipper_length_mm ~ species,
+      data = dat
+    )
+    summary(res_aov)
+    ```
+
+    ```{r}
+    oneway.test(flipper_length_mm ~ species,
+      data = dat,
+      var.equal = TRUE # assuming equal variances
+    )
+    ```
+
+**Bài tập.** Dữ liệu về cách cho điểm môn Xác suất thống kê của 3 giáo viên như sau (điểm trên thang 100). Hãy cho biết cách chấm điểm của 3 giáo viên có sai khác nhau không?
+
+| TT  | A   | B   | C   |
+|-----|-----|-----|-----|
+| 1   | 82  | 74  | 79  |
+| 2   | 86  | 82  | 79  |
+| 3   | 79  | 78  | 77  |
+| 4   | 83  | 75  | 78  |
+| 5   | 85  | 76  | 82  |
+| 6   | 84  | 77  | 79  |
+
+: $H_0:$ Cách chấm điểm của 3 giáo viên không sai khác nhau
+
+$H_1:$ Cách chấm điểm của 3 giáo viên có sai khác nhau
+
+Khi đó t sẽ đưa bài toán trở thành bài toán kiểm định giá trị trung bình các nhóm như sau\
+$H_0: \mu_1=\mu_2=\mu_3$ với $\mu_i$ là điểm thi trung bình lớp xác suất thống kê của giáo viên $i$.
+
+$H_1:$ ngược lại.
+
+```{r}
+giaovien <- c("A","A","A","A","A","A","B","B","B","B","B","B","C","C","C","C","C","C")
+diem <- c(82,86,79,83,85,84,74,82,78,75,76,77,79,79,77,78,82,79)
+giaovien<-as.factor(giaovien)
+analysis<-aov(diem~giaovien)
+summary(analysis)
+```
+
+## ANOVA TWO WAY
+
+**Ví dụ.** Sử dụng kết quả phân tích phương sai so sánh giá bán đậu tương qua các năm và giữa các tỉnh trong bảng số liệu sau (đơn vị: đồng/kg)
+
+| Tỉnh     | 2003 | 2004   |
+|----------|------|--------|
+| Sơn La   | 4440 | 4247,7 |
+| Hà Nội   | 4850 | 4294,3 |
+| Đắk Lắk  | 4400 | 4284,3 |
+| Đồng Nai | 4500 | 4314,3 |
+
+```{r}
+province <- c("SonLa","SonLa","HaTay", "HaTay",
+"DacLak", "DacLak", "DongNai", "DongNai")
+year <- c(2003, 2004, 2003, 2004, 2003, 2004, 2003,
+2004)
+price <- c(4440, 4247.7, 4850, 4294.3, 4400, 4284.3,
+4500, 4314.3)
+year <- as.factor(year)
+data.frame(province,year,price)
+price.anova<-aov(price~province+year)
+summary(price.anova)
+```

@@ -1,0 +1,131 @@
+---
+title: "Homework 5"
+author: "Bùi Khánh Duy"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    latex_engine: lualatex
+    keep_tex: yes
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# THỰC HÀNH HỒI QUY TUYẾN TÍNH ĐA BIẾN
+Sử dụng bộ dữ liệu Boston trong gói lệnh MASS bao gồm 14 biến liên quan đến giá trị nhà ở vùng ngoại ô ở Boston và hàm `step`, phân tích hồi quy bội của biến `medv` (giá nhà trung bình – đơn vị: nghìn $) theo các biến còn lại.
+
+a) Đưa ra mô hình hồi quy tuyến tính “forward” và “ backward” tốt nhất.
+```{r}
+  # install.packages("MASS")
+  library(MASS)
+  
+  only <- lm(medv ~ 1, data = Boston)
+  all <- lm(medv ~ ., data = Boston)
+  summary(all)
+```
+Mô hình HQTT forward
+```{r}
+  library(stats)
+  # forward = only to all.
+  forward <- step(object = only, scope = formula(all), direction = "forward", trace = 0)
+  forward$coefficients
+```
+Mô hình HQTT backward
+```{r}
+  backward <- step(object = all, scope = formula(only), direction = "backward", trace = 0)
+  backward$coefficients
+```
+=> PTHQTT tốt nhất:
+$$
+\begin{aligned}
+medv &= 36.341145004  -0.108413345*crim  + 0.045844929*zn \\ 
+&+ 2.718716303*chas -17.376023429 * nox + 3.801578840 * rm  \\
+&-1.492711460*dis +  0.299608454*rad   -0.011777973 * tax \\
+&-0.946524570*ptratio + 0.009290845 * black  -0.522553457 *lstat
+\end{aligned}
+$$
+
+b) Khi phân tích “forward”, nếu biến medv được biểu diễn theo hai biến thì đó là những biến nào?
+```{r}
+forward$anova
+
+two <-  lm(medv ~ lstat + rm, data = Boston)
+two$coefficients
+```
+
+$$
+medv =  -1.3582728  -0.6423583*lstat  + 5.0947880 *rm
+$$
+PT: $medv = a0 + a1 * lstat + a2*rm$
+
+Kiểm định xem các hệ số a0, a1, a2 trong mô hình hồi quy có thực sự khác 0 hay không?
+```{r}
+summary(two)
+```
+BT: H0: a0 = 0; H1: a0 != 0
+
+Do p_value = 0.669 > 0.05 nên chấp nhận H0
+
+=> KL: Với KTC 95%, có cơ sở để nói a0 = 0
+
+BT: H0: a1 = 0; H1: a1 != 0
+
+Do p_value < 2e-16 < 0.05 nên bác bỏ H0
+
+=> KL: Với KTC 95%, có cơ sở để nói a1 != 0
+
+BT: H0: a2 = 0; H1: a2 != 0
+
+Do p_value < 2e-16 < 0.05 nên bác bỏ H0
+
+=> KL: Với KTC 95%, có cơ sở để nói a2 != 0
+
+Khi đó, ta viết lại mô hình HQTT của `medv` theo `lstat` và `rm` như sau:
+```{r}
+two = lm(medv ~ lstat + rm + 0, data = Boston)
+two$coefficients
+```
+
+$$
+medv = -0.655740 * lstat +  4.906906*rm
+$$
+
+c) Khi phân tích “backward”, kiểm định xem các hệ số trong mô hình hồi quy tuyến tính thu được có thực sự khác 0 không? Phần dư có tuân theo phân phối chuẩn với giá trị trung bình bằng 0 không?
+$$
+\begin{aligned}
+medv &= 36.341145004  -0.108413345*crim  + 0.045844929*zn \\ 
+&+ 2.718716303*chas -17.376023429 * nox + 3.801578840 * rm  \\
+&-1.492711460*dis +  0.299608454*rad   -0.011777973 * tax \\
+&-0.946524570*ptratio + 0.009290845 * black  -0.522553457 *lstat
+\end{aligned}
+$$
+
+```{r}
+# medv = a0 + a1*crim + a2*zn + a3*chas + a4*nox + a5*rm + a6*dis + a7*rad + a8*tax + a9*ptratio + a10*black + a11*lstat
+```
+Kiểm định xem các hệ số $a_i$ $(i=\overline{0, 11})$ trong mô hình hồi quy có thực sự khác 0 hay không?
+
+BT: H0: $a_i = 0$; H1: $a_i != 0$ (i = 0, 1, ..., 11)
+```{r}
+summary(backward)
+```
+Do p-value < 2.2e-16 < 0.05 (p_value lấy từ phần F-statistic) nên bác bỏ H0 => với KTC 95%, có cơ sở để nói $\forall a_i \ne 0$
+
+Kiểm định xem phần dư có tuân theo phân phối chuẩn với giá trị trung bình = 0 hay không?
+```{r}
+shapiro.test(backward$residuals)
+```
+Do p-value < 2.2e-16 < 0.05 nên bác bỏ H0 => với KTC 95%, có cơ sở để nói phần dư không tuân theo pp chuẩn
+
+Kiểm định xem giá trị trung bình của phần dư khác 0 hay không?
+```{r}
+wilcox.test(backward$residuals)
+```
+BT: H0: mu_re = 0; H1: mu_re != 0
+
+Do p-value = 0.008285 < 0.05 nên bác bỏ H0
+
+KL: Với KTC 95%, có cơ sở để nói giá trị trung bình của phần dư khác 0.

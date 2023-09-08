@@ -1,0 +1,22 @@
+# compile
+g++ --std=c++11 -o iter measure_iter.cpp
+g++ --std=c++11 -o recur measure_recur.cpp
+
+# open and clear file time1.txt
+> time1.txt
+# open and clear file time2.txt
+> time2.txt
+
+# for loop run 10 times:
+echo "Starting measure"
+for i in {1..10}
+do
+    # generate testcase
+    python gen.py > input.txt
+    # run program a with input.txt and append result to time1.txt and time2.txt
+    ./iter < input.txt >> time1.txt
+    ./recur < input.txt >> time2.txt
+done
+echo "Done measure"
+
+

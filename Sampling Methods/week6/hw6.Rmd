@@ -1,0 +1,120 @@
+---
+title: "Homework 6"
+author: "Bùi Khánh Duy- 20001898"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 8.2
+
+```{r}
+# Lực lượng của từng cluster (số lượng cưa trên mỗi cụm)
+m_i = c(3,7,11,9,2,12,14,3,5,9,8,6,3,2,1,4,12,6,5,8)
+# Tổng số tiền phải trả cho mỗi cluster
+y_i = c(50,110,230,140,60,280,240,45,60,230,140,130,70,50,10,60,280,150,110,120)
+
+n = 20 # Kích cỡ mẫu
+N = 96 # Tổng cỡ mẫu
+
+M = sum(m_i) # lực lượng của quần thể
+eM = M/N # Kích thước trung bình của 1 nhóm.
+
+# Phương sai của nhóm.
+s2 = var(y_i) 
+s2
+
+ey = sum(y_i)/M # Giá trị trung bình của nhóm.
+ey
+
+# Phương sai ước tính của tổng thể
+var_y = (1-n/N)*s2/(n*eM^2)
+var_y
+
+bound = 2*sqrt(var_y)
+bound # Sai số của ước lượng
+ey-bound
+ey+bound
+```
+
+=> $EY \in (1.461797, 4.533752)$
+
+# 8.3
+```{r}
+# Ước lượng của tổng giá trị quần thể
+to = M*ey
+to
+
+# Ước lượng phương sai của tổng giá trị quần thể
+var_to = N^2 *(1-n/N)*s2/n
+var_to
+
+bound= 2*sqrt(var_to)
+bound
+```
+
+# 8.8
+```{r}
+m_i = c(51,62,49,73,101,48,65,49,73,61,58,52,65,49,55)
+a_i = c(42,53,40,45,63,31,38,30,54,45,51,29,46,37,42)
+
+n = length(a_i)
+N = 87
+
+p_mu = sum(a_i)/sum(m_i)
+
+e_m = mean(m_i)
+
+S2_p = sum((a_i-m_i*p_mu)^2)/(n-1)
+
+B = 2*sqrt((1-n/N)*S2_p/(n*e_m^2))
+e_m - B
+e_m + B
+```
+
+=> $m \in (60.35821, 61.10846)$
+
+# 8.9
+```{r}
+B = 0.08
+D = (B^2*e_m^2)/4
+
+n0 = (N*S2_p) / (N*D + S2_p)
+n0
+```
+
+Vì $n_0 = 6.101613$ => n = 7
+
+# 8.10
+```{r}
+n = 20
+N = 60
+
+m_i = c(55,60,63,58,71,78,69,58,52,71,73,64,69,58,63,75,78,51,67,70)
+y_i = c(2210,2390,2430,2380,2760,3110,2780,2370,1990,2810, 2930,2470,2830,2370,2390,2870,3210,2430,2730,2880)
+
+y_mu = sum(y_i)/sum(m_i)
+
+e_m = mean(m_i)
+s2_p = sum((y_i-m_i*y_mu)^2)/(n-1)
+
+var_y = (1-n/N) * s2_p/(n*e_m^2)
+
+B = 2*sqrt(var_y)
+
+y_mu - B
+y_mu + B
+
+```
+
+# 8.11 
+```{r}
+to_muy = N*sum(y_i)/n
+
+var_to = sum(m_i)*var_y
+B = 2*sqrt(var_to)
+
+```

@@ -1,0 +1,149 @@
+---
+title: "Giữa kì"
+author: "Bùi Khánh Duy - 20001898"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    latex_engine: lualatex
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Câu 1. 
+Cho bộ dữ liệu nghiên cứu về sự biến động của tiền thuê đất nông nghiệp để trồng
+cỏ linh lăng - thức ăn cho bò sữa vào năm 1977 tại 67 hạt của Minnesota.
+
+### (i) Nhập dữ liệu vào R/RStudio.
+```{r}
+data = read.csv("ThueDatTrongCo.csv")
+```
+
+### (ii) Tìm trung bình mẫu, ma trận hiệp phương sai mẫu và ma trận tương quan mẫu.
+```{r}
+cm = colMeans(data) # Trung binh mau
+data.cov = cov(data) # Ma tran hiep phuong sai
+data.cor = cor(data) # Ma tran tuong quan mau
+cm
+data.cov
+data.cor
+```
+### (iii) Tìm giá trị riêng, vectơ riêng của ma trận hiệp phương sai mẫu.
+```{r}
+data.eigen = eigen(data.cov)
+data.eigen$values # Giá trị riêng
+data.eigen$vectors # vectơ riêng
+```
+
+### (iv) Từng biến ngẫu nhiên có phân bố chuẩn 1−chiều không?
+
+Với biến `Rent`
+```{r}
+shapiro.test(data$Rent)
+```
+Vì p-value = 0.01471 < 0.05 => với khoảng tin cậy 95%, không thể kết luận biến `Rent` tuân theo phân bố chuẩn 1-chiều
+
+Với biến `AllRent`
+```{r}
+shapiro.test(data$AllRent)
+```
+
+Vì p-value = 0.01686 < 0.05 => với khoảng tin cậy 95%, không thể kết luận biến `AllRent` tuân theo phân bố chuẩn 1-chiều
+
+Với biến `Cows`
+```{r}
+shapiro.test(data$Cows)
+```
+
+Vì p-value = 0.0001149 < 0.05 => với khoảng tin cậy 95%, không thể kết luận biến `Cows` tuân theo phân bố chuẩn 1-chiều
+
+Với biến `Pasture`
+```{r}
+shapiro.test(data$Pasture)
+```
+
+Vì p-value = 1.229e-07 < 0.05 => với khoảng tin cậy 95%, không thể kết luận biến `Pasture` tuân theo phân bố chuẩn 1-chiều
+
+
+### (v) X có phân bố chuẩn 4−chiều không?
+
+Từ kết quả ở câu `(iv)` ta có thể kết luận $X$ không phân bố chuẩn 4-chiều
+
+### (vi) Vẽ biểu đồ thể hiện rõ hàm mật độ hai chiều của hai biến Rent và Cows.
+```{r}
+# install.packages("KernSmooth")
+library(KernSmooth)
+
+x <- data[,c("Rent", "Cows")]
+do_thi <- bkde2D(x, bandwidth =c(dpik(data$Rent), dpik(data$Cows)))
+persp(x = do_thi$x1, y = do_thi$x2, z = do_thi$fhat , xlab="Rent", ylab="Cows", zlab="density")
+```
+
+### (vii) Giải thuật từng bước step backward để tìm mô hình biểu diễn Rent theo các biến còn lại "phù hợp nhất". Viết phương trình hồi quy tuyến tính.
+```{r}
+# Backward = all to only
+# install.packages(stats)
+library(stats)
+only = lm(Rent ~ 1, data = data)
+all = lm(Rent ~ ., data = data)
+
+backward = step(object = all, scope = formula(only), direction = "backward", trace = 0)
+summary(backward)
+backward$coefficients
+```
+
+Từ kết quả này ta có phương trình HQTT:
+$$
+\text{Rent} = -6.1143282  + 0.9213684\times\text{AllRent} +   0.3925476\times \text{Cows}
+$$
+
+### (viii) Kiểm định xem phần dư trong mô hình có tuân theo phân phối chuẩn với giá trị trung bình bằng 0 không?
+
+Dùng shapiro test để kiểm định xem phần dư trong mô hình có tuân theo phân phối chuẩn hay không.
+```{r}
+shapiro.test(backward$residuals)
+```
+Vì p-value = 0.3855 > 0.05
+
+=> Với khoảng tin cậy 95%, có thể kết luận phần dư của mô hình tuân theo phân phối chuẩn
+
+Bài toán: $H0: EX(\varepsilon) = EX(\varepsilon)$; $H1: EX(\varepsilon) \ne 0$
+
+Dùng wilcox test để kiểm định phần dư có giá trị trung bình bằng 0 hay không
+```{r}
+wilcox.test(backward$residuals)
+```
+Vì p-value = 0.8932 > 0.05 nên chấp nhận H0
+
+Kết luận: Với khoảng tin cậy 95%, không đủ cơ sở để bác bỏ H0, vậy phần dư có giá trị trung bình bằng 0.
+
+
+# Câu 2
+Sinh ngẫu nhiên 1000 giá trị của biến $X$ biết $X ∼ N(160, 16.5)$ và sinh ngẫu nhiên 1000 giá trị của biến Y biết $Y ∼ N(170, 22.5)$. Khi đó, vectơ ngẫu nhiên $(X, Y)^T$ có phân bố chuẩn 2−chiều không?
+
+Chuẩn bị dữ liệu, $(X,Y)$ được lưu dưới dạng ma trận
+```{r}
+set.seed(216)
+X <- rnorm(1000, 160, 16.5)
+Y <- rnorm(1000, 170, 22.5)
+head(X)
+head(Y)
+
+matrix_xy = matrix(c(X, Y), ncol=2)
+```
+
+
+Bài toán: H0: $(X, Y)^T$ có pb chuẩn 2-chiều; H1: $(X, Y)^T$ có không có pb chuẩn 2-chiều
+
+Sử dụng hàm `mshapiro.test` của thư viện `mvnormtest` để kiểm định cho $(X,Y)^T$ có phân bố chuẩn 2-chiều hay không?
+
+```{r}
+# install.packages("mvnormtest")
+mvnormtest::mshapiro.test(t(matrix_xy))
+```
+
+Vì p-value = 0.2306 > 0.05 => Chấp nhận H0
+
+Vậy với khoảng tin cậy 95%, có thể kết luận rằng $(X,Y)^T$ tuân theo phân bố chuẩn 2-chiều.

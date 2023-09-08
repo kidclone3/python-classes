@@ -1,0 +1,169 @@
+---
+title: "Homework 4"
+author: "Bùi Khánh Duy - 20001898"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## 5.2 
+
+$$
+n_i = n\times \bigg(\frac{N_i\sigma_i}{\sum_{k=1}^L N_k\sigma_k}\bigg)
+$$
+```{r}
+n = 30
+sigma = c(6,5,3)
+N = c(132,92,27)
+```
+
+```{r}
+
+sum_N_sigma = sum(N*sigma)
+print(sum_N_sigma)
+
+find_n_i = function(n, N_i, sigma_i) {
+    n_i = n * N_i * sigma_i / sum_N_sigma
+    n_i
+}
+```
+
+```{r}
+vecto_n = sapply(1:length(N), function(x) {
+  ans = find_n_i(n, N[x], sigma[x])
+  print(c(N[x], sigma[x]))
+  ans = round(ans, 0)
+})
+vecto_n
+```
+
+## 5.3
+Data:
+
+| Labourers | Technicians | Administrators |
+| -------- | ------- | ------- | 
+| 8 | 4 | 1 |
+| 24 | 0 | 8 |
+| 0 | 8 | |
+| 0 | 3 | |
+| 16 | 1 | |
+| 32 | 5 | |
+| 6 | 24 | |
+| 0 | 12 | |
+| 16 | 2 | |
+| 7 | 8 | |
+| 4 |
+| 4 |
+| 9 |
+| 5 |
+| 8 |
+| 18 | 
+| 2 |
+| 0 |
+
+```{r}
+labourers = c(8,24,0,0,16,32, 6,0,16,7,4,4,9,5,8,18,2,0)
+technicians = c(4,0,8,3,1,5,24,12,2,8)
+administrators = c(1,8)
+ 
+par(mfrow=c(1,3))
+plot(labourers, xlab="Lost hours")
+plot(technicians, xlab="Lost hours")
+plot(administrators, xlab="Lost hours")
+par(mfrow=c(1,1))
+
+To = length(labourers)
+# abandon
+```
+
+## 5.5
+
+$$
+V(N\bar{y}_{st}) = \frac B {4N^2} = D
+$$
+
+$$
+n = {(\sum_{k=1}^L N_k \sigma_k/\sqrt{c_k})(\sum_{i=1}^L N_i \sigma_i \sqrt{c_i})\over N^2D + \sum_{i=1}^LN_i\sigma^2_i}
+$$
+$$
+n_i = n \times \bigg( {N_i\sigma_i / \sqrt{c_i} \over \sum_{k=1}^L N_k \sigma_k / \sqrt{c_k} } \bigg)
+$$
+
+```{r}
+D = 0.1
+c = c(9, 25, 36)
+sigma = c(1.5, 1.8, 1.8)
+N = c(112,68,39)
+
+
+sum_sigma_mul_sqrt_c = sum(N*sigma*sqrt(c))
+sum_sigma_divide_sqrt_c = sum(N*sigma/sqrt(c))
+
+sum_sigma_c = sum_sigma_mul_sqrt_c * sum_sigma_divide_sqrt_c
+
+sum_sigma_c_2 = sum(N*sigma^2)
+
+
+find_n <- function(N,sigma,c,D) {
+  sum_n = sum(N)
+  n = sum_sigma_c / (sum_n^2 * D + sum_sigma_c_2)
+  n = round(n, 0)
+  n
+}
+n = find_n(N, sigma, c, D)
+n
+
+find_n_i <- function(N,sigma,c,n,i) {
+  n_i = n*((N*sigma/sqrt(c))/sum_sigma_divide_sqrt_c)
+n_i }
+
+
+result = sapply(1:length(N), function(x) {
+    res = find_n_i(N[x],sigma[x],c[x],n,x)
+    res = round(res, 0)
+})
+result
+```
+
+## 5.10
+Cong thuc:
+$$
+\tau = N \times \bar X = \sum_{j=1}^L n_j \bar{x_j} 
+$$
+
+
+```{r}
+stratum_1 = c(97, 67, 42, 125, 25, 92, 105, 86, 27, 43, 45, 59, 53, 21)
+stratum_2 = c(125, 155, 67, 96, 256, 47, 310, 236, 220, 352, 142, 190)
+stratum_3 = c(142, 310, 495, 320, 196, 256, 440, 510, 396)
+stratum_4 = c(167, 655, 220, 540, 780)
+
+N = c(86, 72, 52, 30)
+n = c(14, 12, 9, 5)
+x_bar = c(mean(stratum_1), mean(stratum_2), mean(stratum_3), mean(stratum_4))
+x_bar
+s = c(var(stratum_1), var(stratum_2), var(stratum_3), var(stratum_4))
+s
+
+sum_N = sum(N)
+
+var_tau = sum(N^2*(1-n/N)*s/n)
+
+bound = 2*sqrt(var_tau)
+bound
+
+tau = sum(N * x_bar)
+tau
+
+```
+
+## 5.11
+Reduce to bound of error is 5000 acres
+```{r}
+w = n/N
+B_0 = 5000
+sum(N*s) + (B_0^2/4)
+N_new = sum((N* sqrt(s))^2 /(B_0^2/4 + sum(N*s))
+N_new
+```

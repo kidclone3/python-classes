@@ -1,0 +1,175 @@
+---
+title: "Notebook wee5"
+author: "Bùi Khánh Duy"
+date: '`r Sys.Date()`'
+output:
+  html_document: default
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Bài 1
+Sinh ngẫu nhiên 1000 giá trị của bién X1 biết X1 ~ N(0, 1), 1000 giá trị của X2 biết X2 ~ N(0,4). Vẽ ellip
+```{r}
+X1 <- rnorm(1000, 0, sqrt(1)) # Sinh ra nn 1000 gt của x1
+X2 <- rnorm(1000, 0, sqrt(1)) # Sinh ra nn 1000 gt của x1
+```
+
+Để vẽ ellipse -> phải cài đặt thư viện
+```{r}
+# install.packages("ellipse")
+library(ellipse)
+```
+
+Gộp X1 và X2 thành 1 data frame.
+```{r}
+X <- data.frame(X1, X2)
+head(X)
+
+S = cov(X) # Ma trận hiệp phương sai
+S
+cm = colMeans(X)
+cm
+```
+Vẽ đồ thị
+```{r}
+elip = ellipse(S, centre = cm)
+plot(elip)
+```
+Toạ độ tâm của ellipse là kì vọng mẫu
+
+## Bài 2: 
+Cho trước ma trận hiệp phương sai và kỳ vọng mẫu. Sinh ngẫu nhiên 1000 giá trị của vecto ngẫu nhiên tương ứng. Kiểm định xem từng biến trong vectơ ngẫu nhiên có phân bố chuẩn 1-chiều không?
+
+```{r}
+S = matrix(c(2,0,0,3), nrow=2)
+S
+cm = c(0,1)
+```
+Dùng data có sẵn từ thư viện MASS
+```{r}
+# install.packages("MASS")
+library(MASS)
+
+X = mvrnorm(1000, cm, S)
+head(X)
+shapiro.test(X[,1])
+```
+
+# Mô hình hồi quy tuyến tính
+$$
+\begin{aligned}
+Y &= a_0 + \varepsilon\\
+Y &= a_0 + a_i X_i + \varepsilon\\ 
+Y &= a_0 + a_iX_i + a_jX_j + \varepsilon\\ 
+&... \\
+Y &= a_0 + a_iX_i + a_jX_j + ... + a_k X_k + \varepsilon (\leftarrow Step backward)
+\end{aligned}
+$$
+
+Sử dụng chỉ số AIC để xét mô hình phù hợp. AIC nhỏ nhất <=> Mô hình phù hợp nhất
+Ví dụ ở bước 2 thứ đã thoả mãn AIC min -> dừng lại.
+
+=>
+
++ Đưa ra mô hình HQTT/ƯL của các hệ số hồi quy 
++ Kiểm định hệ số: $H_0: a_1 = 0$ vs $H_1: a_1 ≠ 0$
++ Tìm khoảng tin cậy cho Hệ số hồi quy
++ Kiểm định phần dư $\varepsilon = y-\hat {y} \sim N(0, \sigma_2^2)$ 
+
+Ví dụ
+```{r}
+library("datasets")
+only = lm(mpg ~ 1, data = mtcars) # Biểu diễn HQTT của mpg vs chính nó
+only
+# mpg = 20.09
+two = lm(mpg ~ cyl, data=mtcars) # Biểu diễn HQTT của mpg theo cyl
+two
+
+two2 = lm(mpg ~ cyl + 0, data=mtcars) # Biểu diễn HQTT của mpg theo cyl mất hệ số tự do
+two2
+
+# mpg = 2.79 * cyl
+
+thr = lm(mpg ~ cyl + disp, data = mtcars) # Biểu diễn HQTT của mpg theo cyl và disp
+thr$coefficients
+# PTHQTT: mpg = 34.66099474 -1.58727681*cyl -0.02058363*disp
+
+ff = lm(mpg ~ cyl + disp + hp, data = mtcars) # Biểu diễn HQTT của mpg theo cyl, disp và hp
+summary(ff)
+# mpg = a0 + a1*cyl + a2*disp + a3*hp + e
+# Ước lượng cho các hệ số trong mô hình hồi quy:
+# _h aka \hat
+# a0_h = 34.18492, a1_h = -1.22742, a2_h = -0.01884, a3_h = -0.01468
+# y_h[i] = mpg_h[i] = a0_h + a1_h*cyl[i] + a2_h*disp[i] + a3_h*hp[i]
+# Có sẵn trong quan sát: y[i] = mpg[i]
+# Phần dư e[i] = y[i] - y_h[i]
+e = ff$residuals # phần dư
+```
+## Kiểm định phần dư
+Kiểm định xem phần dư có tuân theo phân phố ichẩun với giá trị trung bình tuân theo pp chuẩn hay không?
+H0: e tuân theo pp chuẩn vs H1: e không tuân theo pp chuẩn
+```{r}
+shapiro.test(e) # kiểm định theo pp chuẩn
+```
+
+Do p-value = 0.09469 > 0.05 => e tuân theo phân phối chuẩn
+
+Kiểm tra xem phần dư có giá trị trung bình = 0 hay không?
+H0: E(e) = 0 vs H1: E(e) ≠ 0
+```{r}
+t.test(e)
+```
+Vì p-value = 1 > 0.05 nên chấp nhận H0
+
+Còn nếu e không tuân theo pp chuẩn thì dùng hàm này để kiểm định giá trị trung bình của e
+```{r}
+wilcox.test(e)
+```
+
+```{r}
+all = lm(mpg~., data=mtcars) # biểu diễn hqtt của mpg theo tất cả các biến còn lại
+summary(all)
+summary(ff)
+```
+Kiểm định xem các hệ số trong mô hình hồi quy có thực sự khác 0 không?
+$$mpg = a0 + a1*cyl + a2*disp + a3*hp + \varepsilon$$
+
+H0: a0 = 0 vs H1: a0 ≠ 0
+Do p-value = 5.054e-09 < 0.05 nên bác bỏ H0.
+=> Có cơ sở để nói a0 ≠ 0
+
+```{r}
+library(stats)
+# step(object, scope, scale, direction, trace)
+# object = only/all
+# scope = formula(all)/formula(all) - formula(only)
+# direction = "forward" / "backward"
+# trace = 0
+forward = step(object = only, scope = formula(all), direction = "forward", trace = 0)
+# Tính toán từ mô hình đơn giản nhất đến mô hình phức tạp nhất
+forward$anova
+```
+- Đầu tiên, tính mô hình mpg = a0 thu được AIC = 115...
+- Sau đó, tính toán với mô hình 1 biến: $mpg = a0 + a_i * x_i$ thu được 10 chỉ số AIC tương ứng với 10 biến X_i, chọn AIC nhỏ nhất tương ứng với 10 biến X_i, chọn AIC nhỏ nhất = 73...
+- Sau đó, tính toán với mô hình 2 biến: $mpg = a0 + a_1*wt + a_2*x_j$ thu được 9 chỉ số AIC tương ứng với 9 biến X_j, chọn AIC nhỏ nhất = 63...(cyl)
+- Sau đó, tính toán với mô hình 3 biến: $mpg = a0 + a_1*wt + a_2*cyl + a_3 * x_l$ thu được 8 chỉ số AIC tương ứng với 8 biến X_j, chọn AIC nhỏ nhất = 62...(hp)
+
+Vì không còn kết quả tốt hơn nữa nên dừng lại.
+
+Đưa ra khoảng tin cậy cho các hệ số trong mô hình hồi quy
+```{r}
+confint(forward) # mặc định là 95%
+```
+
+```{r}
+backward = step(object = all, scope = formula(only), direction = "backward", trace = 0)
+backward$anova
+
+forward$coefficients
+backward$coefficients
+```

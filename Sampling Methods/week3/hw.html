@@ -11,7 +11,7 @@
 
 <meta name="author" content="Bùi Khánh Duy" />
 
-<meta name="date" content="2023-03-12" />
+<meta name="date" content="2023-03-15" />
 
 <title>Homework 2</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Homework 2</h1>
 <h4 class="author">Bùi Khánh Duy</h4>
-<h4 class="date">2023-03-12</h4>
+<h4 class="date">2023-03-15</h4>
 
 </div>
 
@@ -399,10 +399,15 @@ print(sprintf(&quot;y_bar = %f, B = %f &quot; , y_bar, B))</code></pre>
 <h2>4.15</h2>
 <pre class="r"><code>B = 0.05
 
-n_0 &lt;- N*(y_bar*(1-y_bar))/((N-1) *B^2/4 + y_bar*(1-y_bar))
+find_N &lt;- function(N, y_bar, B) {
+  N*(y_bar*(1-y_bar))/((N-1) *B^2/4 + y_bar*(1-y_bar))
+  N
+}
+
+n_0 &lt;- find_N(N, y_bar, B)
 
 n_0</code></pre>
-<pre><code>## [1] 127.9045</code></pre>
+<pre><code>## [1] 300</code></pre>
 <p>Vậy cần <span class="math inline">\(n \ge \lceil n_0 \rceil \approx n
 &gt; 128\)</span></p>
 </div>
@@ -516,6 +521,39 @@ print(sprintf(&quot;n_0 = %f&quot;, n))</code></pre>
 <p><span class="math display">\[
 \Rightarrow N \ge \lceil n_0 \rceil = 2392
 \]</span></p>
+</div>
+<div id="section-10" class="section level2">
+<h2>4.23</h2>
+<pre class="r"><code>n = 20
+N = 200
+y_bar = 2.1
+s = 0.4
+
+# a. Estimate muy:
+muy_top = y_bar = 2.1
+# b. Bound of error
+B = 2*sqrt((1-n/N)*s^2/n)
+B</code></pre>
+<pre><code>## [1] 0.1697056</code></pre>
+</div>
+<div id="section-11" class="section level2">
+<h2>4.24</h2>
+<pre class="r"><code>s = 1
+B2 = 1
+find_N(N, s, B2)</code></pre>
+<pre><code>## [1] 200</code></pre>
+</div>
+<div id="section-12" class="section level2">
+<h2>4.25</h2>
+<pre class="r"><code>N = 621
+n = 60
+p_approx = 11/60
+find_b_fre &lt;- function(n, N, p) {
+  B = 2*sqrt((1-n/N)*p*(1-p)/(n-1))
+  B
+}
+find_b_fre(n, N, p)</code></pre>
+<pre><code>## [1] 0.1225212</code></pre>
 </div>
 
 

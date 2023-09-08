@@ -1,0 +1,148 @@
+---
+title: "BÀI TẬP PHÂN TÍCH PHÂN LỚP, PHÂN BIỆT"
+author: "Bùi Khánh Duy"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    latex_engine: xelatex
+  html_document: default
+---
+
+# Bài 1: (6.3)
+
+1. Nhập dữ liệu measure vào R.
+
+```{r}
+data = read.csv("measure.csv", header=T)
+```
+
+2. Tính khoảng cách Euclide giữa các quan sát trên các biến "chest", "waist", "hips".
+
+```{r}
+d = dist(data[, c("chest", "waist", "hips")])
+d
+```
+
+
+3. Tạo khung vẽ đồ thị gồm 2 hàng và 3 cột. Vẽ 3 biểu đồ dendrogram ở hàng trên và 3 đồ thị về hai thành phần chính đầu tiên tương ứng với 3 phương pháp “single”, “complete”, “average”. Vẽ đường thẳng cắt ngang y = 3.8, y = 7.5 và y = 5.5 tương ứng trong 3 biểu đồ dendrogram.
+
+```{r}
+par(mfrow = c(2,3))
+plot(cs <- hclust(d, method = "single"))
+abline(h = 3.8)
+plot(cs <- hclust(d, method = "complete"))
+abline(h=7.5)
+plot(cs <- hclust(d, method = "average"))
+abline(h=5)
+```
+
+
+4. Với các ngưỡng khoảng cách được tạo ra ở trên, trong mỗi biểu đồ, các quan sát ban đầu được chia thành mấy nhóm? Mỗi nhóm gồm những quan sát nào?
+
+```{r}
+body_pc = princomp(d, cor = TRUE)
+xlim = range(body_pc$scores[,1])
+plot(body_pc$scores[,1:2], type = "n", xlim = xlim, ylim = xlim)
+lab = cutree(cs, h = 3.8)
+text(body_pc$scores[,1:2], labels = lab, cex = 0.6)
+plot(body_pc$scores[,1:2], type = "n", xlim = xlim, ylim = xlim)
+lab = cutree(cs, h = 7.5)
+text(body_pc$scores[,1:2], labels = lab, cex = 0.6)
+plot(body_pc$scores[,1:2], type = "n", xlim = xlim, ylim = xlim)
+lab = cutree(cs, h = 5.5)
+text(body_pc$scores[,1:2], labels = lab, cex = 0.6)
+```
+
+# Bài 2: (6.3.1)
+
+1. Nhập dữ liệu jet vào R.
+```{r}
+# dev.off()
+data2 = read.csv("jet.csv", header = T)
+```
+
+2. Tính khoảng cách Euclide sau khi chuẩn hóa giữa các quan sát trên các biến “FFD”, “SPR”, “RGF”, “PLF”, “SLF”.
+
+```{r}
+X = scale(data2[, c("SPR", "RGF", "PLF", "SLF")], center = F, scale = T)
+
+dj = dist(X)
+plot(cc <- hclust(dj), main = "Jets clustering")
+cc
+```
+
+3. Phân cụm phân cấp dựa trên cơ sở liên kết đầy đủ. Nếu khoảng cách giữa hai quan sát < 0.9 thì hai quan sát được gọi là cùng nhóm, nếu khoảng cách đó >= 0.9 thì hai quan sát được gọi là khác nhóm. Khi đó, các quan sát ban đầu được chia thành mấy nhóm? Mỗi nhóm gồm những quan sát nào?
+
+```{r}
+data2 = recode()
+pr = prcomp(dj)$x[, 1:2]
+plot(pr, pch = (1:2)[cutree(cc, k = 2)], col = c("red", "green")[data2$CAR], xlim = range(pr) * c(1, 1.5))
+# c("red", "blue", "green", "yellow")
+legend("topright", col = c("red", "red", "green", "green"), legend = c("1 / no", "2 / no", "1 / yes", "2 / yes"), pch = c(1:2, 1:2), title = "Cluster / CAR", bty = "n")
+```
+
+
+4. Vẽ và giải thích hình 6.6 (trang 174).
+
+# Bài 3: (6.4)
+
+1. Nhập dữ liệu crime vào R.
+```{r}
+data3 = read.csv("crime.csv", header = T)
+```
+
+2. Vẽ ma trận biểu đồ tán xạ. Nhận xét về bang khác biệt so với các quan sát còn lại.
+```{r}
+pairs(data3[, -1], pch=".", cex=1.5)
+```
+
+3. Vẽ biểu đồ tán xạ thể hiện rõ sự khác biệt của bang đó. Nhận xét về tỷ lệ các tội phạm các loại ở bang đó.
+```{r}
+subset(data3, Murder > 15)
+pch_vec = rep(".", nrow(data3[,-1]))
+pch_vec[24] = "+"
+pairs(data3[,-1], pch = pch_vec, cex = 1.5)
+```
+
+4. Tính phương sai và phương sai sau khi chuẩn hóa của các biến.
+```{r}
+var = cov(data3[,-1])
+sapply(data3[,-1], var)
+rge = sapply(data3[,-1], function(x) diff(range(x)))
+crime_s = sweep(data3[,-1], 2, rge, FUN = "/")
+sapply(crime_s, var)
+```
+
+5. Thực hiện phân cụm K-means với k = 2. Đưa ra tâm (giá trị trung bình) của 2 nhóm. Bang ND và bang SD được xếp vào nhóm nào?
+
+```{r}
+kmeans(crime_s, centers = 2)$centers * rge
+```
+
+# Bài 4: (6.4.2)  
+a) Nhập dữ liệu pottery (table 1.3 – page 8-9) vào R.
+```{r}
+# n = nrow(crime_s)
+# wss = rep(0, 6)
+# wss[1] = (n - 1) * sum(sapply(crime_s, var))
+# for (i in 2:6) {
+#   wss[i] = sum(kmeans(crime_s, centers = i)$withinss)
+# }
+# plot(1:6, wss, type = "b", xlab = "Number of groups", ylab = "Within groups sum of squares")
+# install.packages("HSAUR")
+library(HSAUR)
+data4 = pottery
+```
+
+b) Thực hiện phân cụm K-means với k = 2. Lập bảng tần số thể hiện mối liên
+hệ giữa lò nung và cụm được phân.
+```{r}
+
+```
+
+c) Vẽ biểu đồ hình ảnh thể hiện khoảng cách giữa các điểm. Thông qua biểu đồ
+này, có nhận xét gì về việc phân cụm?
+d) Vẽ biểu đồ chia cụm cluster plot, dùng hàm fviz_cluster.
+```{r}
+
+```

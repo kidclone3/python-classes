@@ -1,0 +1,1 @@
+# Sinh ngẫu nhiên 1000 giá trị của bién X1 biết X1 ~ N(0, 1), 1000 giá trị của X2 biết X2 ~ N(0,4). Vẽ ellip

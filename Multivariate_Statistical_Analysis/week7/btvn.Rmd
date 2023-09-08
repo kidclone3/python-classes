@@ -1,0 +1,125 @@
+---
+title: "Bài tập phân tích thành phần chính (tiếp)"
+author: "Bùi Khánh Duy"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    latex_engine: lualatex
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Cho bộ dữ liệu Sleep in Mammals về một số nhân tố liên quan đến giấc ngủ của 62 loài động vật có vú.
+
+Biến:
+
+-   **BodyWt** - trọng lượng cơ thể (kg)
+
+-   **BrainWt** - trọng lượng não (g)
+
+-   **NonDreaming** - số giờ ngủ không mơ (giờ/ngày)
+
+-   **Dreaming** - số giờ ngủ có mơ (giờ/ngày)
+
+-   **TotalSleep** - tổng số giờ ngủ (giờ/ngày)
+
+-   **LifeSpan** - tuổi thọ (năm)
+
+-   **Gestation** - thời gian mang thai (ngày)
+
+-   **Predation** - chỉ số bị săn mồi (1-5): 1= ít khả năng bị săn mồi nhất; 5 = rất có thể là con mồi
+
+-   **Exposure** - chỉ số tiếp xúc khi ngủ (1-5): 1 = ít tiếp xúc nhất (ngủ trong hang được bảo vệ tốt); 5 = tiếp xúc nhiều nhất
+
+-   **Danger** - chỉ số gặp nguy hiểm (1-5): 1 = ít gặp nguy hiểm nhất; 5 = dễ gặp nguy hiểm nhất,
+
+    
+Thực hiện phân tích hồi quy tuyến tính tổng số giờ ngủ theo trọng lượng cơ thể, trọng lượng não, tuổi thọ, thời gian mang thai, chỉ số săn mồi, chỉ số tiếp xúc khi ngủ và chỉ số nguy hiểm.
+
+### 1) Có nên thực hiện phân tích hồi quy nói trên trực tiếp không? Vì sao?
+
+```{r}
+data = read.csv("Sleep in Mammals.csv")
+dt = data[-1]
+x = dt[, c(1,2,5,6,7,8,9,10)]
+x
+
+cor = cor(x[,-3])
+cor
+
+usair_sleep <- princomp(x[,-3], cor=T)
+usair_sleep
+
+pairs(x[,-3], pch=".", cex=1.5)
+```
+
+Do **BodyWt** và **BrainWt** có tương quan mạnh => không thực hiện hồi quy tuyến tính trên 7 biến
+
+### 2) Vẽ ma trận biểu đồ tán xạ giữa các biến trọng lượng cơ thể, trọng lượng não, tuổi thọ, thời gian mang thai, chỉ số săn mồi, chỉ số tiếp xúc khi ngủ và chỉ số nguy hiểm.
+
+```{r}
+cor(usair_sleep$scores)
+
+par(mfrow = c(3,2))
+out <- sapply(1:6, function(i){
+  plot(x$TotalSleep, usair_sleep$scores[,i],
+       xlab = paste("PC", i, sep=""),
+       ylab = "TotalSleep")
+})
+```
+
+### 3) Thực hiện phân tích thành phần chính đối với ma trận tương quan giữa các biến trong ý 2
+```{r}
+summary(usair_sleep,loadings = TRUE)
+```
+
+### 4) Đưa ra tỉ lệ biến sai tổng cộng của từng thành phần chính
+
+Proportion of Variance: PC1 = 0.4969754, PC2 = 0.2980591, PC3 = 0.1204585, PC4 = 0.04277375, PC5 = 0.02946743, PC6 = 0.0075292, PC7 = 0.004736606
+
+### 5) Biểu diễn thành phần chính thứ nhất và thứ hai theo các biến ban đầu.
+
+```{r}
+usair_sleep$loadings[,1]
+usair_sleep$loadings[,2]
+```
+
+### 6) Cần mấy thành phần chính để thu được 90% thông tin về tập dữ liệu ban đầu.
+
+Chỉ cần 3 thành phần chính để biểu diễn 90% thông tin về tập dữ liệu bởi vì Cumulative Proportion của 3 thành phần chính ban đầu đã đạt 0.9154930 = 91.55% > 90 %.
+
+### 7) Vẽ các biểu đồ tán xạ giữa biến tổng số giờ ngủ theo m thành phần chính vừa tìm được ở ý 6
+
+```{r}
+par(mfrow = c(3,2))
+out <- sapply(1:3, function(i){
+  plot(x$TotalSleep, usair_sleep$scores[,i],
+       xlab = paste("PC", i, sep = ""),
+       ylab = "TotalSleep")
+}) 
+```
+
+### 8) Đưa ra phương trình hồi quy tuyến tính của tổng số giờ ngủ theo m thành phần chính vừa tìm được ở ý 6.
+
+```{r}
+usair_reg <- lm(TotalSleep ~ usair_sleep$scores[,c(1,2,3)], data=x)
+summary(usair_reg)
+```
+
+### 9) Mô hình này có tốt không
+
+```{r}
+shapiro.test(usair_reg$residuals)
+```
+
+$p-value = 0.6377 > 0.05$ -> Chấp nhận giả thiết, độ lệch tuân theo phân bố chuẩn.
+
+```{r}
+t.test(usair_reg$residuals)
+```
+
+$p-value = 1 > 0.05$ -> giá trị trung bình của phần dư  = 0 => Mô hình tốt

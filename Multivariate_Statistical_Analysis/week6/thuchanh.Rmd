@@ -1,0 +1,56 @@
+---
+title: "thuchanh_w6"
+author: "Bùi Khánh Duy"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    latex_engine: lualatex
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+dl = read.csv("table2.csv")
+head(dl[, -1])
+x <-  dl[, -1]
+s <- cov(x)
+
+s
+```
+## 1) Tính các giá trị riêng và vectơ riêng tương ứng của ma trận tương quan mẫu.
+```{r}
+tquan_mau = cor(x)
+eicor = eigen(tquan_mau)
+eicor
+```
+## 2) Đưa ra tỉ lệ biến sai tổng cộng của từng thành phần chính.
+```{r}
+pcacov = princomp(covmat=s)
+summary(pcacov, loadings=T)
+
+pcacor = princomp(covmat=tquan_mau)
+summary(pcacor, loadings=T)
+```
+
+Tỉ lệ biến sai tổng cộng của từng thành phần chính lần lượt là: 
+`[0.415835, 0.2229606, 0.1867644, 0.1257476, 0.02812516, 0.01773848, 0.002828756]` 
+
+## 3) Biểu diễn thành phần chính thứ nhất theo các biến ban đầu.
+$$
+Comp.1 =  0.521 \cdot S02 - 0.288\cdot Nhietdo + 0.548 \cdot Soluong + 0.508 \cdot DanSo+ 0.195\cdot Gio + 0.219\cdot SoNgay
+$$
+
+## 4) Cần bao nhiêu thành phần chính để thu được 95% thông tin về tập dữ liệu
+ban đầu?
+
+Từ dữ liệu ở trên, ta kết luận được cần 4 thành phần chính
+
+## 5) Vẽ biểu đồ biplot cho bộ dữ liệu.
+```{r}
+library(stats)
+pca<-princomp(x)
+biplot(pca,col=c("gray","black"))
+```
